@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: gateway-service # Nom du service, utile pour la découverte Eureka
+  cloud:
+    config:
+      discovery:
+        enabled: true
+      enabled: false
+server:
+  port: 8888 # Port de la Gateway
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.cloud.gateway: TRACE # Utile pour le débogage de la Gateway
+    org.springframework.web: DEBUG
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/

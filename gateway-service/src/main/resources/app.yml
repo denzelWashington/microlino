@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: gateway-service # Nom du service, utile pour la découverte Eureka
+  cloud:
+    gateway:
+      routes:
+        # Route 1: API (vers 8081)
+        - id: r1-api
+          uri: http://localhost:8081 # URI corrigée (sans le slash final)
+          predicates:
+            - Path=/api/**
+
+        # Route 2: Bank (vers 8081)
+        - id: r1-bank
+          uri: http://localhost:8081
+          predicates:
+            - Path=/bankAccount/**
+
+        # Route 3: Customers (vers 8082) - Simplifiée pour gérer /customers et /customers/...
+        - id: r2-customers-all
+          uri: http://localhost:8082
+          predicates:
+            - Path=/customers/**
+
+        - id: r1-profile-v1
+          uri: http://localhost:8081
+          predicates:
+            - Path=/profile/**
+    config:
+      discovery:
+        enabled: true
+      enabled: false
+server:
+  port: 8888 # Port de la Gateway
+
+logging:
+  level:
+    root: ERROR
+    org.springframework.cloud.gateway: TRACE # Utile pour le débogage de la Gateway
+    org.springframework.web: DEBUG
+
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
