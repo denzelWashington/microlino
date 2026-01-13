@@ -10,6 +10,15 @@
     </parent>
 
     <artifactId>customer-service</artifactId>
+    <profiles>
+        <profile>
+            <id>openshift</id>
+            <properties>
+                <java.version>17</java.version>
+                <maven.compiler.release>17</maven.compiler.release>
+            </properties>
+        </profile>
+    </profiles>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
